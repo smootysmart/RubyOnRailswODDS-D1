@@ -16,6 +16,12 @@
 <% end %> 
 
 <section class="block max-w-md w-full mx-auto bg-zinc-50 py-8 px-4 border border-gray-200 rounded-md shadow-sm" >
+<%= form_with url: todos_path, method: :get, local: true do %>
+  <div class="flex gap-5 pb-3">
+    <%= text_field_tag :search, params[:search], placeholder: "Search here", class: "rounded-md py-1.5 pl-7 pr-20 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm/6" %>
+    <%= submit_tag "Search", class: "rounded-lg px-3 py-2 bg-orange-600 w-fit text-white hover:bg-orange-800" %>
+  </div>
+<% end %>
   <div class="flex justify-between items-center">
     <h1 class="text-3xl font-bold text-orange-600" >Todos</h1>
 
@@ -26,7 +32,10 @@
       </svg>
     <% end %>
   </div>
+
+  
 <div id="todos-list" class="flex flex-col gap-1 mt-6">
+   <% if @todos.any? %>
     <% @todos.each do |todo| %>
       <div id="todos" class="flex justify-between rounded-lg my-2 items-center border-b pb-2">
         <%= render todo %>
@@ -48,5 +57,8 @@
         </div>
       </div>
     <% end %>
+  <% else %>
+      <p>No results found.</p>
+  <% end %>
   </div>
 </section>
